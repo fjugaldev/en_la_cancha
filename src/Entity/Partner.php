@@ -5,12 +5,15 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PartnerRepository")
  */
 class Partner extends User
 {
+    use TimestampableEntity;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -47,6 +50,11 @@ class Partner extends User
      * @ORM\OneToMany(targetEntity="App\Entity\Partner", mappedBy="owner")
      */
     private $managers;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\PartnerPlan", inversedBy="partner")
+     */
+    private $plan;
 
     public function __construct()
     {
@@ -147,6 +155,18 @@ class Partner extends User
                 $manager->setOwner(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPlan(): ?PartnerPlan
+    {
+        return $this->plan;
+    }
+
+    public function setPlan(?PartnerPlan $plan): self
+    {
+        $this->plan = $plan;
 
         return $this;
     }
