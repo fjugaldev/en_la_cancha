@@ -28,11 +28,6 @@ class BillingFrecuency
      */
     private $frecuency;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\PartnerPlan", inversedBy="billingFrecuency")
-     */
-    private $partnerPlan;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -58,18 +53,6 @@ class BillingFrecuency
     public function setFrecuency(int $frecuency): self
     {
         $this->frecuency = $frecuency;
-
-        return $this;
-    }
-
-    public function getPartnerPlan(): ?PartnerPlan
-    {
-        return $this->partnerPlan;
-    }
-
-    public function setPartnerPlan(?PartnerPlan $partnerPlan): self
-    {
-        $this->partnerPlan = $partnerPlan;
 
         return $this;
     }

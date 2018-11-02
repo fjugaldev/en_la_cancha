@@ -52,9 +52,9 @@ class Partner extends User
     private $managers;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\PartnerPlan", inversedBy="partner")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Subscription", inversedBy="partner")
      */
-    private $plan;
+    private $subscription;
 
     public function __construct()
     {
@@ -159,14 +159,14 @@ class Partner extends User
         return $this;
     }
 
-    public function getPlan(): ?PartnerPlan
+    public function getSubscription(): ?Subscription
     {
-        return $this->plan;
+        return $this->subscription;
     }
 
-    public function setPlan(?PartnerPlan $plan): self
+    public function setSubscription(?Subscription $subscription): self
     {
-        $this->plan = $plan;
+        $this->subscription = $subscription;
 
         return $this;
     }
