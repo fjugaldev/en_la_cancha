@@ -19,32 +19,32 @@ class Country
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=120)
      */
-    private $name;
+    protected $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $flag;
+    protected $flag;
 
     /**
      * @ORM\Column(type="string", length=2)
      */
-    private $isoCode2;
+    protected $isoCode2;
 
     /**
      * @ORM\Column(type="string", length=3)
      */
-    private $isoCode3;
+    protected $isoCode3;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Province", mappedBy="country")
      */
-    private $provinces;
+    protected $provinces;
 
     public function __construct()
     {

@@ -16,17 +16,17 @@ class BillingFrecuency
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $name;
+    protected $name;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $frecuency;
+    protected $frecuency;
 
     public function getId(): ?int
     {

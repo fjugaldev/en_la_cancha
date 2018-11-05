@@ -18,12 +18,24 @@ class Business
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=180)
      */
-    private $name;
+    protected $name;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Partner", inversedBy="business")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    protected $partner;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Address")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $billingAddress;
 
     public function getId(): ?int
     {
@@ -38,6 +50,30 @@ class Business
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getPartner(): ?Partner
+    {
+        return $this->partner;
+    }
+
+    public function setPartner(?Partner $partner): self
+    {
+        $this->partner = $partner;
+
+        return $this;
+    }
+
+    public function getBillingAddress(): ?Address
+    {
+        return $this->billingAddress;
+    }
+
+    public function setBillingAddress(?Address $billingAddress): self
+    {
+        $this->billingAddress = $billingAddress;
 
         return $this;
     }

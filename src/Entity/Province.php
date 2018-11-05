@@ -17,18 +17,18 @@ class Province
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=120)
      */
-    private $name;
+    protected $name;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Country", inversedBy="provinces")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $country;
+    protected $country;
 
     public function getId(): ?int
     {

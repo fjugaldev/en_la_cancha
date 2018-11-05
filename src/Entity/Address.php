@@ -17,28 +17,34 @@ class Address
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $street;
+    protected $street;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $number;
+    protected $number;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Province")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $province;
+    protected $province;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $postalCode;
+    protected $postalCode;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Partner", inversedBy="addresses")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $partner;
 
     public function getId(): ?int
     {
@@ -89,6 +95,18 @@ class Address
     public function setPostalCode(int $postalCode): self
     {
         $this->postalCode = $postalCode;
+
+        return $this;
+    }
+
+    public function getPartner(): ?Partner
+    {
+        return $this->partner;
+    }
+
+    public function setPartner(?Partner $partner): self
+    {
+        $this->partner = $partner;
 
         return $this;
     }

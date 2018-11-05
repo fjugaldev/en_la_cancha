@@ -44,23 +44,46 @@ class Partner extends User
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Partner", inversedBy="partners")
      */
-    private $owner;
+    protected $owner;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Partner", mappedBy="owner")
      */
-    private $managers;
+    protected $managers;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Subscription", inversedBy="partner")
      */
-    private $subscription;
+    protected $subscription;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Business", mappedBy="partner")
+     */
+    protected $business;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Address", mappedBy="partner")
+     */
+    private $addresses;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\License", mappedBy="partner", cascade={"persist", "remove"})
+     */
+    private $license;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\License", mappedBy="partner")
+     */
+    private $licenses;
 
     public function __construct()
     {
         parent::__construct();
         $this->managers = new ArrayCollection();
         $this->roles = ["ROLE_ADMIN"];
+        $this->business = new ArrayCollection();
+        $this->addresses = new ArrayCollection();
+        $this->licenses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -167,6 +190,116 @@ class Partner extends User
     public function setSubscription(?Subscription $subscription): self
     {
         $this->subscription = $subscription;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Business[]
+     */
+    public function getBusiness(): Collection
+    {
+        return $this->business;
+    }
+
+    public function addBusiness(Business $business): self
+    {
+        if (!$this->business->contains($business)) {
+            $this->business[] = $business;
+            $business->setPartner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBusiness(Business $business): self
+    {
+        if ($this->business->contains($business)) {
+            $this->business->removeElement($business);
+            // set the owning side to null (unless already changed)
+            if ($business->getPartner() === $this) {
+                $business->setPartner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Address[]
+     */
+    public function getAddresses(): Collection
+    {
+        return $this->addresses;
+    }
+
+    public function addAddress(Address $address): self
+    {
+        if (!$this->addresses->contains($address)) {
+            $this->addresses[] = $address;
+            $address->setPartner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAddress(Address $address): self
+    {
+        if ($this->addresses->contains($address)) {
+            $this->addresses->removeElement($address);
+            // set the owning side to null (unless already changed)
+            if ($address->getPartner() === $this) {
+                $address->setPartner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getLicense(): ?License
+    {
+        return $this->license;
+    }
+
+    public function setLicense(License $license): self
+    {
+        $this->license = $license;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $license->getPartner()) {
+            $license->setPartner($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|License[]
+     */
+    public function getLicenses(): Collection
+    {
+        return $this->licenses;
+    }
+
+    public function addLicense(License $license): self
+    {
+        if (!$this->licenses->contains($license)) {
+            $this->licenses[] = $license;
+            $license->setPartner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLicense(License $license): self
+    {
+        if ($this->licenses->contains($license)) {
+            $this->licenses->removeElement($license);
+            // set the owning side to null (unless already changed)
+            if ($license->getPartner() === $this) {
+                $license->setPartner(null);
+            }
+        }
 
         return $this;
     }

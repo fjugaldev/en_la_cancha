@@ -19,36 +19,36 @@ class Subscription
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Partner", mappedBy="plan")
      * @ORM\JoinColumn(nullable=false)
      *
      */
-    private $partner;
+    protected $partner;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Plan")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $plan;
+    protected $plan;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\BillingFrecuency")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $billingFrecuency;
+    protected $billingFrecuency;
 
     /**
      * @ORM\Column(type="date")
      */
-    private $nextBill;
+    protected $nextBill;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isActive;
+    protected $isActive;
 
     public function __construct()
     {

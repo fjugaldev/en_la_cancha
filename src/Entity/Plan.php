@@ -17,37 +17,42 @@ class Plan
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=80)
      */
-    private $name;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $business;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $fields;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $managers;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $owners;
+    protected $name;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $parameters;
+    private $description;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $business;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $fields;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $managers;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $owners;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    protected $parameters;
 
     public function getId(): ?int
     {
@@ -62,6 +67,18 @@ class Plan
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }
